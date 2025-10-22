@@ -1,0 +1,2 @@
+validation_type,source_conn,target_conn,source_table,target_table,primary_keys,exclude_columns,exclude_column_list,source_sql_location,target_sql_location,output_table,filters
+row_hash,ORA19C3,hr,hr.source_data_validation2,hr.source_data_validation2,"id",N,,,,sachinwvproj21.pso_data_validator.results,

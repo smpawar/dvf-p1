@@ -1,0 +1,158 @@
+gcloud logging read 'resource.type="cloud_run_job" AND resource.labels.job_name="dvt-cloud-run-execute" AND labels."run.googleapis.com/execution_name"="dvt-cloud-run-execute-fw7mp"' \
+--project sachinwvproj21 \
+--freshness="12h" \
+--format "value(timestamp, textPayload)"
+2025-10-22T08:37:59.401278Z
+2025-10-22T08:37:53.871123Z	Container called exit(0).
+2025-10-22T08:37:53.523929Z	Error executing DVT:  local variable 'row_count' referenced before assignment
+2025-10-22T08:37:53.523918Z	Job ID: 8f9055c3-96ea-4651-8c23-a287ba1aad1e
+2025-10-22T08:37:53.523913Z	Location: US
+2025-10-22T08:37:53.523897Z	Error executing query:  404 Not found: Dataset sachinwvproj21:hr was not found in location US; reason: notFound, message: Not found: Dataset sachinwvproj21:hr was not found in location US
+2025-10-22T08:37:53.186438Z	SELECT COUNT(*) FROM hr.source_data_validation2
+2025-10-22T08:37:53.176634Z	obtaining size of table
+2025-10-22T08:37:53.176619Z	current table: hr.source_data_validation2
+2025-10-22T08:37:52.888070Z	reading CSV from GCS file
+2025-10-22T08:37:52.888067Z	Executing DVT
+2025-10-22T08:37:52.888056Z	return_code 1
+2025-10-22T08:37:52.322973Z	(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-22T08:37:52.322969Z	DPY-3001: Native Network Encryption and Data Integrity is only supported in python-oracledb thick mode
+2025-10-22T08:37:52.322958Z	Traceback (most recent call last):
+  File "/usr/local/bin/data-validation", line 7, in <module>
+    sys.exit(main())
+  File "/usr/local/lib/python3.9/site-packages/data_validation/__main__.py", line 669, in main
+    run_connections(args)
+  File "/usr/local/lib/python3.9/site-packages/data_validation/__main__.py", line 631, in run_connections
+    with clients.get_data_client_ctx(conn) as _:
+  File "/usr/local/lib/python3.9/contextlib.py", line 119, in __enter__
+    return next(self.gen)
+  File "/usr/local/lib/python3.9/site-packages/data_validation/clients.py", line 346, in get_data_client_ctx
+    client = get_data_client(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/data_validation/clients.py", line 336, in get_data_client
+    raise exceptions.DataClientConnectionFailure(msg)
+data_validation.exceptions.DataClientConnectionFailure: Connection Type "Oracle" could not connect: (oracledb.exceptions.OperationalError) DPY-6005: cannot connect to database (CONNECTION_ID=QISv3hwh/SsQjNYjEzgrxg==).
+2025-10-22T08:37:52.318145Z	During handling of the above exception, another exception occurred:
+2025-10-22T08:37:52.318140Z	(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-22T08:37:52.318137Z	DPY-3001: Native Network Encryption and Data Integrity is only supported in python-oracledb thick mode
+2025-10-22T08:37:52.318123Z	Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/data_validation/clients.py", line 330, in get_data_client
+    data_client = CLIENT_LOOKUP[source_type](**decrypted_connection_config)
+  File "/usr/local/lib/python3.9/site-packages/third_party/ibis/ibis_oracle/api.py", line 36, in oracle_connect
+    backend.do_connect(
+  File "/usr/local/lib/python3.9/site-packages/third_party/ibis/ibis_oracle/__init__.py", line 172, in do_connect
+    super().do_connect(engine)
+  File "/usr/local/lib/python3.9/site-packages/ibis/backends/base/sql/alchemy/__init__.py", line 93, in do_connect
+    self._inspector = sa.inspect(self.con)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/inspection.py", line 140, in inspect
+    ret = reg(subject)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/reflection.py", line 313, in _engine_insp
+    return Inspector._construct(Inspector._init_engine, bind)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/reflection.py", line 246, in _construct
+    init(self, bind)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/reflection.py", line 257, in _init_engine
+    engine.connect().close()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 3273, in connect
+    return self._connection_cls(self)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 147, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2436, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 3297, in raw_connection
+    return self.pool.connect()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 713, in checkout
+    rec = pool._do_get()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/impl.py", line 507, in _do_get
+    rec = self.connection
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 1226, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/impl.py", line 464, in connection
+    return _ConnectionRecord(self)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 675, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 902, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 897, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/create.py", line 646, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 625, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+  File "/usr/local/lib/python3.9/site-packages/oracledb/connection.py", line 1698, in connect
+    return conn_class(dsn=dsn, pool=pool, params=params, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/oracledb/connection.py", line 892, in __init__
+    impl.connect(params_impl)
+  File "src/oracledb/impl/thin/connection.pyx", line 536, in oracledb.thin_impl.ThinConnImpl.connect
+  File "src/oracledb/impl/thin/connection.pyx", line 532, in oracledb.thin_impl.ThinConnImpl.connect
+  File "src/oracledb/impl/thin/connection.pyx", line 475, in oracledb.thin_impl.ThinConnImpl._connect_with_params
+  File "src/oracledb/impl/thin/connection.pyx", line 456, in oracledb.thin_impl.ThinConnImpl._connect_with_description
+  File "src/oracledb/impl/thin/connection.pyx", line 418, in oracledb.thin_impl.ThinConnImpl._connect_with_address
+  File "/usr/local/lib/python3.9/site-packages/oracledb/errors.py", line 199, in _raise_err
+    raise error.exc_type(error) from cause
+sqlalchemy.exc.OperationalError: (oracledb.exceptions.OperationalError) DPY-6005: cannot connect to database (CONNECTION_ID=QISv3hwh/SsQjNYjEzgrxg==).
+2025-10-22T08:37:52.289298Z	The above exception was the direct cause of the following exception:
+2025-10-22T08:37:52.289291Z	DPY-3001: Native Network Encryption and Data Integrity is only supported in python-oracledb thick mode
+2025-10-22T08:37:52.289273Z	Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 3297, in raw_connection
+    return self.pool.connect()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 713, in checkout
+    rec = pool._do_get()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/impl.py", line 507, in _do_get
+    rec = self.connection
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 1226, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/impl.py", line 464, in connection
+    return _ConnectionRecord(self)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 675, in __init__
+    self.__connect()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 902, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 897, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/create.py", line 646, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 625, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+  File "/usr/local/lib/python3.9/site-packages/oracledb/connection.py", line 1698, in connect
+    return conn_class(dsn=dsn, pool=pool, params=params, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/oracledb/connection.py", line 892, in __init__
+    impl.connect(params_impl)
+  File "src/oracledb/impl/thin/connection.pyx", line 536, in oracledb.thin_impl.ThinConnImpl.connect
+  File "src/oracledb/impl/thin/connection.pyx", line 532, in oracledb.thin_impl.ThinConnImpl.connect
+  File "src/oracledb/impl/thin/connection.pyx", line 475, in oracledb.thin_impl.ThinConnImpl._connect_with_params
+  File "src/oracledb/impl/thin/connection.pyx", line 456, in oracledb.thin_impl.ThinConnImpl._connect_with_description
+  File "src/oracledb/impl/thin/connection.pyx", line 418, in oracledb.thin_impl.ThinConnImpl._connect_with_address
+  File "/usr/local/lib/python3.9/site-packages/oracledb/errors.py", line 199, in _raise_err
+    raise error.exc_type(error) from cause
+oracledb.exceptions.OperationalError: DPY-6005: cannot connect to database (CONNECTION_ID=QISv3hwh/SsQjNYjEzgrxg==).
+2025-10-22T08:37:52.265134Z	The above exception was the direct cause of the following exception:
+2025-10-22T08:37:52.265108Z	Traceback (most recent call last):
+  File "src/oracledb/impl/thin/connection.pyx", line 414, in oracledb.thin_impl.ThinConnImpl._connect_with_address
+  File "src/oracledb/impl/thin/protocol.pyx", line 288, in oracledb.thin_impl.Protocol._connect_phase_one
+  File "src/oracledb/impl/thin/protocol.pyx", line 470, in oracledb.thin_impl.Protocol._process_message
+  File "src/oracledb/impl/thin/protocol.pyx", line 446, in oracledb.thin_impl.Protocol._process_message
+  File "src/oracledb/impl/thin/messages/connect.pyx", line 72, in oracledb.thin_impl.ConnectMessage.process
+  File "/usr/local/lib/python3.9/site-packages/oracledb/errors.py", line 209, in _raise_not_supported
+    _raise_err(
+  File "/usr/local/lib/python3.9/site-packages/oracledb/errors.py", line 199, in _raise_err
+    raise error.exc_type(error) from cause
+oracledb.exceptions.NotSupportedError: DPY-3001: Native Network Encryption and Data Integrity is only supported in python-oracledb thick mode
+2025-10-22T08:37:48.109192Z	data-validation connections add --connection-name ORA19C3 Oracle --user hr --password hr --host 10.128.15.239 --port 1521 --database PROD1
+2025-10-22T08:37:48.109185Z	Create Oracle and PG connections
+2025-10-22T08:37:48.109170Z	creating DVT connections
+2025-10-22T08:37:48.075356Z	calling bash script to create connections
+2025-10-22T08:37:48.075337Z	project_id:  sachinwvproj21

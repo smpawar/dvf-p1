@@ -1,0 +1,15 @@
+steps:
+  # Step 1: Build the first Docker image
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/dvt-in-cloud-run/dvf-p1-execute', '.', '-f', 'execute_dvt/Dockerfile']
+    id: build-dvt-execute2
+
+  # Step 2: Push the first image
+  - name: gcr.io/cloud-builders/docker
+    args: ['push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/dvt-in-cloud-run/dvf-p1-execute']
+    id: push-dvt-execute2
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+tags:
+  - dvt-cloud-run

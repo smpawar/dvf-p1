@@ -33,27 +33,22 @@ RUN apt-get update && apt-get install -y apt-transport-https ca-certificates gnu
     apt-get install -y wget unzip libaio1
 
 
+
 # --- Oracle Dependencies ---
 # The following steps install the Oracle Instant Client, which is required
 # for python-oracledb thick mode.
 
-# 1. Set the Oracle home directory
-ENV ORACLE_HOME=/opt/oracle/instantclient_21_12
-ENV LD_LIBRARY_PATH=$ORACLE_HOME
+# 1. Create a directory for the client
+WORKDIR /opt/oracle
 
-# 2. Download and unzip the Oracle Instant Client
-RUN mkdir -p $ORACLE_HOME && \
-    cd $ORACLE_HOME && \
-    wget https://download.oracle.com/otn_software/linux/instantclient/2112000/instantclient-basiclite-linux.x64-21.12.0.0.0dbru.zip && \
-    unzip instantclient-basiclite-linux.x64-21.12.0.0.0dbru.zip && \
-    rm instantclient-basiclite-linux.x64-21.12.0.0.0dbru.zip && \
-    mv instantclient_21_12/* . && \
-    rmdir instantclient_21_12
+# 2. Download the Instant Client Basic Package.
+RUN wget https://download.oracle.com/otn_software/linux/instantclient/19800/instantclient-basic-linux.x64-19.8.0.0.0dbru.zip
 
-# 3. Configure the dynamic linker
-RUN echo $ORACLE_HOME > /etc/ld.so.conf.d/oracle.conf && \
-    ldconfig
+# 3. Unzip the package
+RUN unzip instantclient-basic-linux.x64-19.8.0.0.0dbru.zip
 
+# 4. Set the environment variable so the system and python-oracledb know where to find the client libraries.
+ENV LD_LIBRARY_PATH /opt/oracle/instantclient_19_8
 
 # Return to the app directory
 WORKDIR $APP_HOME

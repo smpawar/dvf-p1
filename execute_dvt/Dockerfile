@@ -33,7 +33,6 @@ RUN apt-get update && apt-get install -y apt-transport-https ca-certificates gnu
     apt-get install -y wget unzip libaio1
 
 
-
 # --- Oracle Dependencies ---
 # The following steps install the Oracle Instant Client, which is required
 # for python-oracledb thick mode.

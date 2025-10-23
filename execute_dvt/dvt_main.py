@@ -5,7 +5,7 @@ import oracledb
 
 # Initialize Oracle Thick Mode for advanced security features like NNE
 try:
-    oracledb.init_oracle_client()
+    oracledb.init_oracle_client(lib_dir="/opt/oracle/instantclient_19_8")
 except Exception as e:
     print("Error initializing Oracle thick mode:", e)
     

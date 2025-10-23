@@ -45,7 +45,14 @@ WORKDIR /opt/oracle
 RUN wget https://download.oracle.com/otn_software/linux/instantclient/19800/instantclient-basic-linux.x64-19.8.0.0.0dbru.zip
 
 # 3. Unzip the package
-RUN unzip instantclient-basic-linux.x64-19.8.0.0.0dbru.zip
+RUN unzip instantclient-basic-linux.x64-19.8.0.0.0dbru.zip && \
+    rm instantclient-basic-linux.x64-19.8.0.0.0dbru.zip && \
+    mv instantclient_19_8/* . && \
+    rmdir instantclient_19_8
+
+# 4. Configure the dynamic linker
+RUN echo /opt/oracle/instantclient_19_8 > /etc/ld.so.conf.d/oracle.conf && \
+    ldconfig
 
 # 4. Set the environment variable so the system and python-oracledb know where to find the client libraries.
 ENV LD_LIBRARY_PATH /opt/oracle/instantclient_19_8
